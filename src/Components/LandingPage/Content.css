@@ -1,0 +1,6 @@
+.content-heading-gradient {
+  /* i want text color as leniar gradient  */
+  background: linear-gradient(90deg, #8456ec 3.25%, #e87bf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
