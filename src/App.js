@@ -1,8 +1,8 @@
 // Add Lazy loading afterwards
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router";
-import LandingPage from "Pages/LandingPage";
-import EventPage from "Pages/EventPage";
+const LandingPage = lazy(() => import(`Pages/LandingPage.jsx`));
+const EventPage = lazy(() => import("Pages/EventPage"));
 
 const staticValue = {
   heading: "Birthday Bash",
@@ -21,12 +21,14 @@ const App = () => {
   const [event, setEvent] = React.useState(staticValue);
   return (
     <AppContext.Provider value={{ event, setEvent }}>
-      <Routes>
-        <Route path="/">
-          <Route index element={<LandingPage />} />
-          <Route path="/event" element={<EventPage />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/">
+            <Route index element={<LandingPage />} />
+            <Route path="/event" element={<EventPage />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </AppContext.Provider>
   );
 };
